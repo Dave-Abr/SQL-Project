@@ -10,6 +10,6 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 - **Objective**: Apply and validate my SQL knowledge through a technical challenge.
 - **Technologies**: `PostgreSQL`
 - **Video Presentation**: [`SQLtestsolved.mp4`](https://www.youtube.com/watch?v=TIamBSM9Row)
-- **Exercise Document**: [`pruebaSQL.pdf`](pruebasql.pdf)
+- **Exercise Document**: [`pruebaSQL.pdf`](resources/pruebasql.pdf)
 
 ---
