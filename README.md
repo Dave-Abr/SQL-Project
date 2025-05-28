@@ -9,7 +9,7 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 - **Description**: Development of a SQL test focused on creating and manipulating relational data structures.
 - **Objective**: Apply and validate my SQL knowledge through a technical challenge.
 - **Technologies**: `PostgreSQL`
-- **Video Presentation**: [`SQLtestsolved.mp4`]([resource/SQLtestsolved.mp4](https://www.youtube.com/watch?v=TIamBSM9Row))
+- **Video Presentation**: [`SQLtestsolved.mp4`](https://www.youtube.com/watch?v=TIamBSM9Row)
 - **Exercise Document**: [`pruebaSQL.pdf`](resources/pruebasql.pdf)
 
 ---
