@@ -1,4 +1,4 @@
-![Retail Sales](retail-sales.jpg)
+![Retail Sales](retail_sales.jpg)
 
 ## Project Overview
 **Project Title:** Retail Sales Analysis
