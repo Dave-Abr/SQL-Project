@@ -12,6 +12,7 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 - **Technologies**: `PostgreSQL`
 - **Resource**: [`retail-sales.sql`](retail-sales/retail-sales.sql)
 - **Video Presentation**: 🔗 [link](https://youtu.be/sSTcl4nag2Q)
+
 ![Retail Sales](Retail-Sales-Project/YouTube.jpg)
 
 
