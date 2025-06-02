@@ -4,7 +4,7 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 
 ---
 
-![Retail Sales](resources/retail-sales.jpg)
+![Retail Sales](Retail-Sales-Project/retail_sales.jpg)
 ### 🛍️ Retail Sales Analysis
 
 - **Description**: This project involves setting up a retail sales database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries. 
