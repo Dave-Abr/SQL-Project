@@ -6,6 +6,8 @@
 
 **Project Title:** Retail Sales Analysis
 
+**Resource**: [`retail-sales.sql`](Retail-Sales-Project/retail-sales.sql)
+
 **Video Tutorial:** [![YouTube](https://img.shields.io/badge/YouTube-Video%20Tutorial-red?logo=youtube&logoColor=white)](https://youtu.be/sSTcl4nag2Q)
 
 
