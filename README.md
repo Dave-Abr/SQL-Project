@@ -19,7 +19,7 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 
 ---
 
-![Amazon](resources/amazon.jpg)
+![Amazon](resources/amazonn.jpg)
 ### 📦 Amazon Advanced ***(soon)***
 
 - **Description**: This project is under construction
