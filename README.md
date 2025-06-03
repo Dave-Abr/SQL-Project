@@ -24,12 +24,9 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 
 - **Description**: This project is under construction
 
-- **Technologies**: -
-- **Resource**: -
-- **Video Presentation**: -
 
 
-
+<!--
 
 ---
 
@@ -41,4 +38,4 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 - **Video Presentation**: [`SQLtestsolved.mp4`](https://www.youtube.com/watch?v=TIamBSM9Row)
 - **Exercise Document**: [`pruebaSQL.pdf`](resources/pruebaSQL.pdf)
 
----
+--- --!>
