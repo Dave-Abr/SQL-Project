@@ -1,6 +1,6 @@
 # 📂 SQL Projects
 
-Welcome to the section of my portfolio dedicated to projects involving **SQL**. Here, I showcase challenges and practical exercises that demonstrate my ability to query, manipulate, and structure data using SQL.
+Welcome to the section of my portfolio dedicated to projects involving **SQL**. Here, I showcase challenges and practical exercises that demonstrate my habilities to query, manipulate, and structure data using SQL.
 
 ---
 
