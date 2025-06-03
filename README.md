@@ -19,6 +19,20 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 
 ---
 
+![Amazon](resources/amazon.jpg)
+### 📦 Amazon Advanced ***(soon)***
+
+- **Description**: This project is under construction
+
+- **Technologies**: -
+- **Resource**: -
+- **Video Presentation**: -
+
+
+
+
+---
+
 ### 🗄️ Create and Manipulate a Database in PostgreSQL
 
 - **Description**: Development of a SQL test focused on creating and manipulating relational data structures.
