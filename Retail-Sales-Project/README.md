@@ -170,13 +170,13 @@ ORDER BY year, mes;
 ```sql
 SELECT*
 FROM
-(SELECT 
-	EXTRACT(YEAR FROM sale_date) as year,
-	EXTRACT(MONTH FROM sale_date) as mes,
-	AVG(total_sale) as promedio,
-	RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date) ORDER BY AVG(total_sale) DESC) AS ranking
-FROM ventas
-GROUP BY year, mes
-ORDER BY year, mes) AS subconsulta
+	(SELECT 
+		EXTRACT(YEAR FROM sale_date) as year,
+		EXTRACT(MONTH FROM sale_date) as mes,
+		AVG(total_sale) as promedio,
+		RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date) ORDER BY AVG(total_sale) DESC) AS ranking
+	FROM ventas
+	GROUP BY year, mes
+	ORDER BY year, mes) AS subconsulta
 WHERE ranking = 1;
 ```
