@@ -8,7 +8,7 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 ### 🛍️ Library Management
 
 - **Description**: The goal is to showcase skills in database design, manipulation, and querying, through the implementation of a Library Management System. 
-- **Queries**: `PRIMARY KEYS`, `JOINS`,  `PROCEDURES`, `FUNCTIONS`, `CTAS`
+- **Queries**: `PRIMARY KEYS`, `JOINS`,  `PROCEDURES`, `FUNCTIONS`, `CTAS`, `Subquery`
 - **Resource**: [`library-management.sql`](library-project)
 
 ---
