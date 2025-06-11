@@ -5,7 +5,7 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 ---
 
 ![library](library-project/library.PNG)
-### 🛍️ Retail Sales Analysis
+### 🛍️ Library Management
 
 - **Description**: The goal is to showcase skills in database design, manipulation, and querying, through the implementation of a Library Management System. 
 - **Queries**: `PRIMARY KEYS`, `JOINS`,  `PROCEDURES`, `FUNCTIONS`, `CTAS`
