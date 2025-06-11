@@ -16,12 +16,9 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 ![Retail Sales](Retail-Sales-Project/retail_sales.jpg)
 ### 🛍️ Retail Sales Analysis
 
-- **Description**: This project involves setting up a retail sales database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries. 
-
+- **Description**: This project involves setting up a retail sales database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries.
 - **Technologies**: `PostgreSQL`
-- **Resource**: [`retail-sales.sql`](Retail-Sales-Project)
-- **Video Presentation**: 🔗 [link](https://youtu.be/sSTcl4nag2Q)
-
+- **Resource**: [`retail-sales.sql`](Retail-Sales-Project), 🔗 [Youtube Video Explanation](https://youtu.be/sSTcl4nag2Q)
 ![Retail Sales](Retail-Sales-Project/YouTube.jpg)
 
 
