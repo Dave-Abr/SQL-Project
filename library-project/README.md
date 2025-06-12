@@ -133,11 +133,11 @@ WHERE   issued_id =   'IS121';
 ```
 
 
-### 3. CTAS (Create Table As Select) & Analysis
+### 3. CTAS (Create Table As Select) & Data Analysis
 
 The following SQL queries were developed to answer specific business questions:
 
-1. **Find Total Rental Income by Category:**:
+1. **Find Total Rental Income by Category**
 ```sql
 SELECT 
 	b.isbn,
@@ -166,7 +166,7 @@ JOIN employees as e2
 	ON b.manager_id = e2.emp_id;
 ```
 
-3. **Retrieve the List of Books Not Yet Returned.**:
+3. **Retrieve the List of Books Not Yet Returned**:
 ```sql
 SELECT *
 FROM return_status as r
@@ -177,7 +177,7 @@ WHERE r.return_date IS NULL;
 
 # Advanced Operations
 
-4. **Identify Members with Overdue Books >30 days.**:
+4. **Identify Members with Overdue Books >30 days**:
 ```sql
 SELECT 
 	m.member_name,
@@ -195,6 +195,7 @@ ORDER BY days_overdue DESC;
 ```
 
 5. **Update Book Status on Return**
+   
 The stored procedure should take the book_id as an input parameter. The procedure should first check if the book is available (status = 'yes'). If the book is available, it should be issued, and the status in the books table should be updated to 'no'. If the book is not available (status = 'no'), the procedure should return an error message indicating that the book is currently not available.:
 ```sql
 CREATE OR REPLACE PROCEDURE 
@@ -237,7 +238,8 @@ $$
 CALL update_status('RS138', 'IS135', 'Good');
 ```
 
-6. ** Branch Performance Report.**
+6. **Branch Performance Report**
+   
 Create a query that generates a performance report for each branch, showing the number of books issued, the number of books returned, and the total revenue generated from book rentals.:
 
 ```sql
