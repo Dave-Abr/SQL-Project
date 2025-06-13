@@ -329,7 +329,7 @@ JOIN employees as e2
 select * from employees;
 
 
--- Task 12: Retrieve the List of Books Not Yet Returned
+-- Tarea 11: Lista de libros aun NO devueltos
 
 SELECT *
 FROM return_status as r
@@ -337,30 +337,11 @@ right JOIN issue_status as i
 ON r.issued_id = i.issue_id
 WHERE r.return_date IS NULL;
     
-/*
-### Advanced SQL Operations
 
-Task 13: Identify Members with Overdue Books
-Write a query to identify members who have overdue books (assume a 30-day return period). Display the member's name, book title, issue date, and days overdue.
-*/
+### Operaciones Avanzadas 
 
-INSERT INTO issue_status(issue_id, issued_member_id, issued_book_name, issued_date, issued_book_isbn, issued_emp_id)
-VALUES
-('IS151', 'C118', 'The Catcher in the Rye', CURRENT_DATE - INTERVAL '24 days',  '978-0-553-29698-2', 'E108'),
-('IS152', 'C119', 'The Catcher in the Rye', CURRENT_DATE - INTERVAL '13 days',  '978-0-553-29698-2', 'E109'),
-('IS153', 'C106', 'Pride and Prejudice', CURRENT_DATE - INTERVAL '7 days',  '978-0-14-143951-8', 'E107'),
-('IS154', 'C105', 'The Road', CURRENT_DATE - INTERVAL '32 days',  '978-0-375-50167-0', 'E101');
+--Task 12: Miembros con mas de 50 dias de mora
 
--- Adding new column in return_status
-
-ALTER TABLE return_status
-ADD Column book_quality VARCHAR(15) DEFAULT('Good');
-
-UPDATE return_status
-SET book_quality = 'Damaged'
-WHERE issued_id 
-    IN ('IS112', 'IS117', 'IS118');
-SELECT * FROM return_status;
 
 SELECT 
 	m.member_name,
@@ -377,22 +358,18 @@ WHERE r.return_date IS NULL
 ORDER BY days_overdue DESC;
 
 
---Task 14: Update Book Status on Return
---Write a query to update the status of books in the books table to "available" when they are returned (based on entries in the return_status table).
+-- Agregamos una nueva columna para el status de los libros devueltos
 
-SELECT * FROM books;
+ALTER TABLE return_status
+ADD Column book_quality VARCHAR(15) DEFAULT('Good');
 
-SELECT 
-	i.issued_book_name as book,
-	i.issued_date
-FROM issue_status as i 
-RIGHT JOIN return_status as r
-ON r.issued_id = i.issue_id
-WHERE r.return_date IS not NULL 
+UPDATE return_status
+SET book_quality = 'Damaged'
+WHERE issued_id 
+    IN ('IS112', 'IS117', 'IS118');
 
-
---Task 15: Branch Performance Report
---Create a query that generates a performance report for each branch, showing the number of books issued, the number of books returned, and the total revenue generated from book rentals.
+--Tarea 15: Desempeño por cada rama
+--Cantidad de libros prestados, libros devueltos e ingreso total.
 
 SELECT br.branch_id,
 	COUNT(i.issue_id),
@@ -400,17 +377,16 @@ SELECT br.branch_id,
 	SUM(b.rental_price)
 FROM issue_status as i
 JOIN employees as e
-ON i.issued_emp_id = e.emp_id
+	ON i.issued_emp_id = e.emp_id
 JOIN branch as br
-ON br.branch_id = e.branch_id
+	ON br.branch_id = e.branch_id
 LEFT JOIN return_status as r
-ON r.issued_id = i.issue_id
+	ON r.issued_id = i.issue_id
 JOIN books as b
-ON b.isbn = i.issued_book_isbn
+	ON b.isbn = i.issued_book_isbn
 GROUP BY br.branch_id;
 
---Task 16: CTAS: Create a Table of Active Members
---Use the CREATE TABLE AS (CTAS) statement to create a new table active_members containing members who have issued at least one book in the last 6 months.
+--Task 16: CTAS: Crear una tabla para miembros activos (libro prestados en los ultimos 12 meses)
 
 SELECT * FROM member
 WHERE member_id IN
@@ -419,9 +395,7 @@ FROM issue_status as i
 WHERE issued_date > (CURRENT_DATE  - INTERVAL'12 month')) ;
 
 
---Task 17: Find Employees with the Most Book Issues Processed
---Write a query to find the top 3 employees who have processed the most book issues.
---Display the employee name, number of books processed, and their branch.
+--Tarea 17: Empleado con la mayor cantidad de libros prestados
 
 SELECT 
 	e.emp_name,
@@ -429,36 +403,15 @@ SELECT
 	COUNT(i.issue_id)
 FROM issue_status as i
 JOIN employees as e 
-ON i.issued_emp_id = e.emp_id
+	ON i.issued_emp_id = e.emp_id
 GROUP BY 1,2
 ORDER BY COUNT(i.issue_id) DESC;
 
-SELECT 
-    e.emp_name,
-    b.*,
-    COUNT(ist.issue_id) as no_book_issued
-FROM issue_status as ist
-JOIN
-employees as e
-ON e.emp_id = ist.issued_emp_id
-JOIN
-branch as b
-ON e.branch_id = b.branch_id
-GROUP BY 1, 2
-
---Task 18: Identify Members Issuing High-Risk Books
---Write a query to identify members who have issued books more than twice with the status "damaged" in the books table. Display the member name, book title, and the number of times they've issued damaged books.    
 
 
-
-
-
-
---Tarea 15: Stored Procedure
---Objective: Create a stored procedure to manage the status of books in a library system.
-  --  Description: Write a stored procedure that updates the status of a book based on its issuance or return. Specifically:
-  --  If a book is issued, the status should change to 'no'.
-  --  If a book is returned, the status should change to 'yes'.
+--Tarea 18: Procedimiento para verifica y actulizar el estatus de cada libro prestado
+  --  Si el libro se presta el status debe cambiar a 'no'
+  --  Si el libro es devuelto el status debe cambiar a 'yes'
 
 CREATE OR REPLACE PROCEDURE 
 	update_status
@@ -497,7 +450,5 @@ $$
 
 CALL update_status('IS155', 'C105','978-0-307-58837-1','E102');
 CALL update_status('IS156', 'C105','978-0-393-05081-8','E102');
-
-
 
 
