@@ -4,7 +4,7 @@
 
 **Project Title:** Library Management
 
-**Resource**: [`library-management.sql`](library-management.sql)
+**Resource**: [`library.sql`](library.sql)
 
 
 
