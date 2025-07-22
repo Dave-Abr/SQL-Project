@@ -221,28 +221,225 @@ ON i.product_id = p.product_id
 WHERE i.stock < 10;
 ```
 
+**9. Shipping Delays**
+
+Identify orders where the shipping date is later than 3 days after the order date.
+Challenge: Include customer, order details, and delivery provider.
+
 ```sql
-CALL update_status('RS138', 'IS135', 'Good');
+SELECT
+	orders.order_id,
+	orders.order_date,
+	shippings.shipping_id,
+	shippings.shipping_date,
+	shippings.shipping_date - orders.order_date AS diff,
+	CONCAT(customers.first_name,' ',customers.last_name) AS full_name,
+	sellers.seller_name AS provider
+FROM shippings
+JOIN orders
+	ON shippings.order_id  = orders.order_id
+JOIN customers
+	ON orders.customer_id = customers.customer_id
+JOIN sellers
+	ON orders.seller_id = sellers.seller_id
+WHERE shippings.shipping_date - orders.order_date > 4;
+
 ```
 
-6. **Branch Performance Report**
-   
-Create a query that generates a performance report for each branch, showing the number of books issued, the number of books returned, and the total revenue generated from book rentals.:
+**10. Payment Success Rate**
+
+Calculate the percentage of successful payments across all orders.
+Challenge: Include breakdowns by payment status (e.g., failed, pending).
 
 ```sql
 SELECT 
-	br.branch_id,
-	COUNT(i.issue_id),
-	COUNT(r.return_id),
-	SUM(b.rental_price)
-FROM issue_status as i
-JOIN employees as e
-	ON i.issued_emp_id = e.emp_id
-JOIN branch as br
-	ON br.branch_id = e.branch_id
-LEFT JOIN return_status as r
-	ON r.issued_id = i.issue_id
-JOIN books as b
-	ON b.isbn = i.issued_book_isbn
-GROUP BY br.branch_id;
+	payment_status,
+	COUNT(payment_id) AS cnt,
+	ROUND((COUNT(payment_id)::numeric / (SELECT COUNT(payment_id) FROM payments)::numeric)*100,0) AS percent
+FROM payments
+GROUP BY 1;
+
+```
+
+**11. Top Performing Sellers**
+
+Find the top 5 sellers based on total sales value.
+Challenge: Include both successful and failed orders, and display their percentage of successful orders.
+
+```sql
+WITH 
+c1 AS (
+		SELECT
+			sellers.seller_id,
+			sellers.seller_name,
+			ROUND(SUM(orders_items.total_price)::numeric,0) AS total_sales
+		FROM orders
+		JOIN orders_items
+			ON orders.order_id = orders_items.order_id
+		JOIN sellers 
+			ON orders.seller_id = sellers.seller_id
+		GROUP BY 1,2
+		ORDER BY 3 DESC
+),
+total_payments AS (
+
+		SELECT
+			sellers.seller_id,
+			sellers.seller_name,
+			COUNT(payments.payment_id) AS payments_cnt
+		FROM orders
+		JOIN payments
+			ON orders.order_id = payments.order_id
+		JOIN sellers
+			ON orders.seller_id = sellers.seller_id
+		GROUP BY 1,2
+		ORDER BY 1
+	),
+	
+success_payments AS (
+
+		SELECT
+			sellers.seller_id,
+			sellers.seller_name,
+			COUNT(payments.payment_id) AS successed_cnt
+		FROM orders
+		JOIN payments
+			ON orders.order_id = payments.order_id
+		JOIN sellers
+			ON orders.seller_id = sellers.seller_id
+		WHERE payment_status = 'Payment Successed'
+		GROUP BY 1,2
+		ORDER BY 1
+		
+	) 
+	
+SELECT 
+	c1.seller_id,
+	c1.seller_name,
+	c1.total_sales,
+	success_payments.successed_cnt,
+	total_payments.payments_cnt,
+	ROUND((success_payments.successed_cnt::numeric / total_payments.payments_cnt::numeric )*100,0) AS percentage
+FROM c1
+JOIN total_payments
+	ON c1.seller_id = total_payments.seller_id
+JOIN success_payments
+	ON c1.seller_id = success_payments.seller_id
+ORDER BY 3 DESC;
+
+
+```
+
+**1. Top Selling Products**
+
+Query
+
+```sql
+
+```
+
+**1. Top Selling Products**
+
+Query
+
+```sql
+
+```
+
+**1. Top Selling Products**
+
+Query
+
+```sql
+
+```
+
+**1. Top Selling Products**
+
+Query
+
+```sql
+
+```
+
+**1. Top Selling Products**
+
+Query
+
+```sql
+
+```
+
+**1. Top Selling Products**
+
+Query
+
+```sql
+
+```
+
+**1. Top Selling Products**
+
+Query
+
+```sql
+
+```
+
+## Procedure Creation 🛒
+
+Function that automatically reduces the quantity from the inventory table as soon as a product is sold. When a sale is recorded , it should update the stock in the inventory table based on the product ID and the quantity purchased.
+
+```sql
+CREATE OR REPLACE PROCEDURE
+update_inventory(
+	p_order_id INT,
+	p_customer_id INT,
+	p_seller_id INT,
+	p_order_item_id INT,
+	p_product_id INT,
+	p_quantity INT,
+	p_price_per_unit
+)
+LANGUAGE plpgsql as 
+$$
+	DECLARE
+		v_count INT;
+		v_price FLOAT;
+		v_name VARCHAR(45);
+	
+	BEGIN
+	--CHECK STOCK
+		SELECT COUNT(*) 
+		INTO v_count
+		FROM inventory
+		WHERE
+			product_id = p_product_id AND
+			quantity >= p_quantity
+
+		SELECT price,product_name INTO v_price, v_name FROM productS
+		WHERE product_id = p_product_id
+		
+		IF v_count > 0 THEN
+		
+			--add sale
+			INSERT INTO orders (order_id, order_date, customer_id,seller_id)
+			VALUES (p_order_id, CURRENT_DATE,p_customer_id,p_seller_id);
+			
+			INSERT INTO orders_items(order_item_id,order_id, product_id, quantity,price_per_unit)
+			VALUES (p_order_item_id,p_order_id,p_product_id,p_quantity,v_price);
+		
+			--update inventory
+			UPDATE inventory
+			SET stock = stock - p_quantity
+			WHERE product_id = p_product_id;
+
+			RAISE NOTICE'% WAS SUCCESSFULL',v_name;
+
+		ELSE
+			RAISE NOTICE'THANK YOU FOR YOU INFO, THE % IS NOT AVAILABLE',v_name;
+
+	END
+$$
+
 ```
