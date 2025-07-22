@@ -26,9 +26,11 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 ---
 
 ![Amazon](resources/amazonn.jpg)
-### 📦 Amazon Advanced ***(soon)***
+### 📦 Amazon Advanced 
 
-- **Description**: This project is under construction
+- **Description**: This project involves advanced querying including customer behavior, product performance, and sales trends, revenue analysis, customer segmentation, and inventory management, addressing real-world business challenges
+- **Technologies**: `PostgreSQL`,`PowerBi`
+- **Resource**: [`amazon-project.sql`](Retail-Sales-Project), 🔗 [Youtube Video Explanation](https://youtu.be/sSTcl4nag2Q)
 
 
 
