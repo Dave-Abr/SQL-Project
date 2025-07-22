@@ -659,4 +659,9 @@ $$
 
 ```
 
+## Conclusions
+
+- When working with an inventory database, it's more efficient to update existing records—using a one-record-per-product model—rather than creating new records for each update and filtering by the most recent date. This approach keeps the database cleaner, reduces redundancy, and improves query performance.
+
+- The product price is retrieved from the products table but is also stored in the order_items table at the time of purchase. This ensures that even if the product price later changes in the products table, each order retains the original price used during the transaction, preserving historical accuracy.
 
