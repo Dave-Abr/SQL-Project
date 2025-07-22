@@ -12,111 +12,67 @@
 
 The project involves setting up a retail sales database, performing exploratory data analysis (EDA), and answering specific business questions through SQL queries.
 
-## Objectives
 
-1. **Set up the Library Management System Database:** Create and populate the database with tables for branches, employees, members, books, issued status, and return status.
-2. **CRUD Operations**: Perform Create, Read, Update, and Delete operations on the data.
-3. **CTAS (Create Table As Select)**: Utilize CTAS to create new tables based on query results.
-4. **Advanced SQL Queries**: Develop complex queries to analyze and retrieve specific data..
-
-## Project Structure
-
-### 1. Database Setup
+## Database Setup
 
 ![AmazonERD](00_database_erd.jpg)
 
-- **Database Creation**: The project starts by creating a database named `library_db`.
-- **Table Creation**: Created tables for branches, employees, members, books, issued status, and return status.
+- **Table Creation**: Created tables for products, categories, customers, sellers, orders, orders_items, payments, shipping and inventory.
 
 ```sql
-CREATE DATABASE library_db;
 
-DROP TABLE IF EXISTS branch;
+CREATE TABLE products
+	(
+	product_id INT PRIMARY KEY,
+	product_name VARCHAR(50),
+	price FLOAT,
+	cogs FLOAT,
+	category_id INT,
+	CONSTRAINT product_fk_category 
+	FOREIGN KEY (category_id)
+	REFERENCES categories(category_id)
+	);
 
-CREATE TABLE branch (
-	branch_id VARCHAR(10) PRIMARY KEY,
-	manager_id VARCHAR(10),
-	branch_address VARCHAR(25),
-	contact_no VARCHAR(15)
-	
-);
+CREATE TABLE orders
+	(
+	order_id INT PRIMARY KEY,
+	order_date DATE,
+	customer_id INT,
+	seller_id INT,
+	order_status VARCHAR(15),
+	CONSTRAINT order_fk_customer_id
+	FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
+	CONSTRAINT order_fk_seller_id
+	FOREIGN KEY (seller_id) REFERENCES sellers(seller_id)
+	);
 
-DROP TABLE IF EXISTS employees;
-
-CREATE TABLE employees (
-	emp_id VARCHAR(10) PRIMARY KEY,
-	emp_name VARCHAR(40),
-	emp_position VARCHAR(25),
-	emp_salary DECIMAL(10,2),
-	branch_id VARCHAR(10),
-	FOREIGN KEY (branch_id) REFERENCES branch(branch_id)
-);
-
-DROP TABLE IF EXISTS books;
-CREATE TABLE books(
-	isbn VARCHAR(30) PRIMARY KEY,
-	book_title VARCHAR(70),
-	category VARCHAR(20),
-	rental_price DECIMAL(10,2),
-	status VARCHAR(5),
-	author VARCHAR(60),
-	publisher VARCHAR(50)
-);
-
-DROP TABLE IF EXISTS member;
-
-CREATE TABLE member(
-	member_id VARCHAR(10) PRIMARY KEY,
-	member_name VARCHAR(30),
-	member_address VARCHAR(50),
-	reg_date DATE
-);
-
-DROP TABLE IF EXISTS return_status;
-
-CREATE TABLE return_status(
-	return_id VARCHAR(10) PRIMARY KEY,
-	issued_id VARCHAR(10),
-	return_book_name VARCHAR(75),
-	return_date DATE,
-	return_book_isbn VARCHAR(20)
-);
-
-
-DROP TABLE IF EXISTS issue_status;
-
-CREATE TABLE issue_status (
-	issue_id VARCHAR(10) PRIMARY KEY,
-	issued_member_id VARCHAR(10),
-	issued_book_name VARCHAR(100),
-	issued_date DATE,
-	issued_book_isbn VARCHAR(60),
-	issued_emp_id VARCHAR(10)
-);
-
---Foreign Keys
-
-ALTER TABLE issue_status
-ADD CONSTRAINT fk_member
-FOREIGN KEY (issued_member_id)
-REFERENCES member(member_id);
-
-ALTER TABLE issue_status
-ADD CONSTRAINT fk_book_isbn
-FOREIGN KEY (issued_book_isbn)
-REFERENCES books(isbn);
+[...]
 
 ```
 
-### 2. CRUD Operations
+## Business Problems
 
-**Task 1.** Create a New Book Record 
+**1. Top Selling Products**
+Query the top 10 products by total sales value.
+Challenge: Include product id, product name, total quantity sold, and total sales value.
 
 ```sql
-INSERT INTO books 
-(isbn,	book_title, category, rental_price, status, author, publisher)
-VALUES
-('978-1-60129-456-2', 'To Kill a Mockingbird', 'Classic', 6.00, 'yes', 'Harper Lee', 'J.B. Lippincott & Co.');
+SELECT 
+	products.product_id,
+	products.product_name,
+	SUM(orders_items.quantity) AS total_quantity,
+	COUNT(orders.order_id) AS total_orders,
+	SUM(orders_items.total_price) AS total_price
+FROM
+	orders
+JOIN orders_items
+	ON orders_items.order_id = orders.order_id
+JOIN products
+	ON products.product_id = orders_items.product_id
+GROUP BY 1,2
+ORDER BY 5 DESC
+;
+
 ```
 **Task 2.** Update an Existing Member's Address
 
