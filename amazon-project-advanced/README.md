@@ -4,7 +4,7 @@
 
 **Project Title:** Amazon Advanced
 
-**Resource**: [`library.sql`](library.sql)
+**Resource**: [`02_business_queries.sql`](01_database_init.sql), [`01_database_init.sql`](02_business_queries.sql)
 
 
 
@@ -23,7 +23,7 @@ The project involves setting up a retail sales database, performing exploratory 
 
 ### 1. Database Setup
 
-![AmazonERD](database_erd.PNG)
+![AmazonERD](00_database_erd.jpg)
 
 - **Database Creation**: The project starts by creating a database named `library_db`.
 - **Table Creation**: Created tables for branches, employees, members, books, issued status, and return status.
