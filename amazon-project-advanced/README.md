@@ -330,37 +330,125 @@ ORDER BY 3 DESC;
 
 ```
 
-**1. Top Selling Products**
+**12. Product Profit Margin**
 
-Query
+Calculate the profit margin for each product (difference between price and cost of goods sold).
+Challenge: Rank products by their profit margin, showing highest to lowest.
 
 ```sql
+WITH
+profits 
+AS (
+	SELECT
+		product_id,
+		product_name,
+		price,
+		((price - cogs)/price) AS margin,
+		ROUND((price - cogs)::numeric,0) AS profit
+	FROM products
+	ORDER BY profit DESC
+	)
+SELECT
+	profits.product_id,
+	profits.product_name,
+	SUM(orders_items.quantity * profits.profit) AS total_profit,
+	SUM(orders_items.total_price) AS total_sale,
+	profits.margin,
+	RANK() OVER(ORDER BY SUM(orders_items.quantity * profits.profit)DESC)
+FROM orders
+JOIN orders_items
+	ON orders.order_id = orders_items.order_id
+JOIN profits
+	ON orders_items.product_id = profits.product_id
+GROUP BY 1,2,5
+ORDER BY 3 DESC;
 
 ```
 
-**1. Top Selling Products**
 
-Query
+**13. Most Returned Products**
+
+Query the top 10 products by the number of returns.
+Challenge: Display the return rate as a percentage of total units sold for each product.
 
 ```sql
+SELECT
+	products.product_id,
+	products.product_name,
+	SUM(CASE WHEN orders.order_status = 'Returned' THEN orders_items.quantity ELSE 0 END) AS return_quantity,
+	SUM(CASE WHEN orders.order_status = 'Completed' THEN orders_items.quantity ELSE 0 END) AS completed_quantity,
+	SUM(orders_items.quantity) as total_quantity,
+	ROUND(SUM(CASE WHEN orders.order_status = 'Returned' THEN orders_items.quantity ELSE 0 END)::numeric
+	/NULLIF(SUM(orders_items.quantity),0)::numeric * 100,0) AS percent_returned
+FROM orders_items
+JOIN products
+	ON orders_items.product_id = products.product_id
+JOIN orders
+	ON orders_items.order_id = orders.order_id
+GROUP BY 1,2
+ORDER BY 3 DESC 
+LIMIT 10;
+
+```
+---
+
+**14. Orders Pending Delivery**
+
+Find orders that have been paid but are still pending Delivery .
+Challenge: Include order details, payment date, and customer information.
+
+```sql
+SELECT
+	orders.order_id,
+	orders.order_date,
+	payments.payment_date,
+	CONCAT(customers.first_name,' ',customers.last_name) AS full_name,
+	payments.payment_status,
+	shippings.delivery_status
+FROM orders
+JOIN shippings
+	ON orders.order_id = shippings.order_id
+JOIN payments
+	ON orders.order_id = payments.order_id
+JOIN customers
+	ON orders.customer_id = customers.customer_id
+WHERE 
+	payments.payment_status = 'Payment Successed' AND
+	shippings.delivery_status <> 'Delivered' ;
+
+```
+---
+
+**15. Inactive Sellers**
+
+Identify sellers who haven’t made any sales in the last 6 months.
+Challenge: Show the last sale date and total sales from those sellers.
+
+```sql
+WITH sellers_sales
+AS (
+	SELECT
+		seller_id,
+		MAX(order_date) AS max_date,
+		COUNT(order_id) AS cnt_orders
+	FROM orders
+	GROUP BY 1
+)
+
+SELECT 
+	sellers_sales.seller_id,
+	sellers.seller_name,
+	sellers_sales.max_date,
+	sellers_sales.cnt_orders
+	
+FROM sellerS
+LEFT JOIN sellers_sales
+	ON sellers.seller_id = sellers_sales.seller_id
+WHERE max_date < CURRENT_DATE - INTERVAL '1 YEARS'
 
 ```
 
-**1. Top Selling Products**
-
-Query
-
-```sql
-
-```
-
-**1. Top Selling Products**
-
-Query
-
-```sql
-
-```
+---
 
 **1. Top Selling Products**
 
