@@ -2,6 +2,17 @@
 
 Welcome to the section of my portfolio dedicated to projects involving **SQL**. Here, I showcase challenges and practical exercises that demonstrate my habilities to query, manipulate, and structure data using SQL.
 
+
+---
+
+![Amazon](amazon-project-advanced/data/amazon_cover.jpg)
+### 📦 Amazon Advanced 
+
+- **Description**: This project involves advanced querying including customer behavior, product performance, and sales trends, revenue analysis, customer segmentation, and inventory management, addressing real-world business challenges
+- **Technologies**: `PostgreSQL`,`PowerBi`
+- **Resource**: [`amazon-project.sql`](amazon-project-advanced)
+
+
 ---
 
 ![library](library-project/library.JPG)
@@ -23,14 +34,7 @@ Welcome to the section of my portfolio dedicated to projects involving **SQL**. 
 
 
 
----
 
-![Amazon](resources/amazonn.jpg)
-### 📦 Amazon Advanced 
-
-- **Description**: This project involves advanced querying including customer behavior, product performance, and sales trends, revenue analysis, customer segmentation, and inventory management, addressing real-world business challenges
-- **Technologies**: `PostgreSQL`,`PowerBi`
-- **Resource**: [`amazon-project.sql`](Retail-Sales-Project), 🔗 [Youtube Video Explanation](https://youtu.be/sSTcl4nag2Q)
 
 
 
