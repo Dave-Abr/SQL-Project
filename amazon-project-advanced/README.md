@@ -1,4 +1,4 @@
-![Library](library.JPG)
+![Amazon](data/amazon_cover.jpg)
 
 ## Project Overview
 
