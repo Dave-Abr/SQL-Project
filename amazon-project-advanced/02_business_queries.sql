@@ -588,22 +588,11 @@ JOIN sales
 
 
 
-----------------------------------------------------------------------------------------
-
-/*
-17. Cross-Sell Opportunities
-Find customers who purchased product A but not product B (e.g., customers who bought Apple AirPods Max but not Apple AirPods 3rd Gen).
-Challenge: Suggest cross-sell opportunities by displaying matching product categories.
-*/
-
-
-
-
 
 ----------------------------------------------------------------------------------------
 
 /*
-18. Top 5 Customers by Orders in Each State
+17. Top 5 Customers by Orders in Each State
 Identify the top 5 customers with the highest number of orders for each state.
 Challenge: Include the number of orders and total sales for each customer.
 */
@@ -649,7 +638,7 @@ ORDER BY 1,5 DESC;
 ----------------------------------------------------------------------------------------
 
 /*
-19. Revenue by Shipping Provider
+18. Revenue by Shipping Provider
 Calculate the total revenue handled by each shipping provider.
 Challenge: Include the total number of orders handled and the average delivery time for each provider.
 */
@@ -686,7 +675,7 @@ JOIN revenue
 ----------------------------------------------------------------------------------------
 
 /*
-20. Top 10 product with highest decreasing revenue ratio compare to last year(2022) and current_year(2023)
+19. Top 10 product with highest decreasing revenue ratio compare to last year(2022) and current_year(2023)
 Challenge: Return product_id, product_name, category_name, 2022 revenue and 2023 revenue decrease ratio at end Round the result
 
 Note: Decrease ratio = cr-ls/ls* 100 (cs = current_year ls=last_year)
@@ -808,7 +797,3 @@ $$
 	END
 $$
 
---LEARNING: When having and inventory database, is better to update existing records,
---1 record 1 product, rather than generating un records, and filtering by the last_date entry
--- El precio se saca de la tabla producto y se pone tambien en la tabla orders_items. ya que una vez el 
---precio cambien en 'products' las ordernes quedan con el precio anterior.
