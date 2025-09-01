@@ -8,7 +8,8 @@ This project involves advanced querying including customer behavior, product per
 
 
 
-
+## Power Bi Dashboard
+![AmazonPowerBi](power_bi_dashboard.jpg)
 
 ## Database Setup
 
